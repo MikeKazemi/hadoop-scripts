@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Install script for Hadoop 2.3 on CentOS 6.5.3/x86_64
+#Install script for Hadoop 2.6 on CentOS 6.5.3/x86_64
 
 #run as root (sudo su -)
 
@@ -22,8 +22,8 @@ export JAVA_HOME=/usr/java/default
 export PATH=$PATH:$JAVA_HOME/bin:/usr/local/bin
 
 # install hadoop
-curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.3.0/hadoop-2.3.0.tar.gz | tar -xz -C /usr/local/
-cd /usr/local && ln -s hadoop-2.3.0 hadoop
+curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz | tar -xz -C /usr/local/
+cd /usr/local && ln -s hadoop-2.6.0 hadoop
 
 export HADOOP_PREFIX=/usr/local/hadoop
 sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
