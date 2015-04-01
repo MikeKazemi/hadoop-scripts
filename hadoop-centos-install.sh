@@ -36,7 +36,7 @@ cp $HADOOP_PREFIX/etc/hadoop/*.xml $HADOOP_PREFIX/input
 
 # Standalone Operation
 # testing with mapred sample
-#bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.3.0.jar grep input output 'dfs[a-z.]+'
+#bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar grep input output 'dfs[a-z.]+'
 
 # pseudo distributed
 cat > $HADOOP_PREFIX/etc/hadoop/core-site.xml<<EOF
@@ -110,7 +110,7 @@ build-native-hadoop-libs() {
 
   # hadoop
   curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0-src.tar.gz|tar xz -C /tmp
-  cd /tmp/hadoop-2.3.0-src/
+  cd /tmp/hadoop-2.6.0-src/
   mvn package -Pdist,native -DskipTests -Dtar -DskipTests
 
   rm -rf /usr/local/hadoop/lib/native/*
@@ -133,7 +133,7 @@ $HADOOP_PREFIX/sbin/start-dfs.sh
 $HADOOP_PREFIX/sbin/start-yarn.sh
 $HADOOP_PREFIX/bin/hdfs dfs -mkdir -p /user/root
 $HADOOP_PREFIX/bin/hdfs dfs -put $HADOOP_PREFIX/etc/hadoop/ input
-$HADOOP_PREFIX/bin/hadoop jar $HADOOP_PREFIX/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.3.0.jar grep input output 'dfs[a-z.]+'
+$HADOOP_PREFIX/bin/hadoop jar $HADOOP_PREFIX/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar grep input output 'dfs[a-z.]+'
 $HADOOP_PREFIX/bin/hdfs dfs -cat output/*
 
 
