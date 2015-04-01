@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Install script for Hadoop 2.3 on CentOS 6.5.3/x86_64
+#Install script for Hadoop 2.6 on CentOS 6.5.3/x86_64
 
 #run as root (sudo su -)
 
@@ -22,8 +22,8 @@ export JAVA_HOME=/usr/java/default
 export PATH=$PATH:$JAVA_HOME/bin:/usr/local/bin
 
 # install hadoop
-curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.3.0/hadoop-2.3.0.tar.gz | tar -xz -C /usr/local/
-cd /usr/local && ln -s hadoop-2.3.0 hadoop
+curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz | tar -xz -C /usr/local/
+cd /usr/local && ln -s hadoop-2.6.0 hadoop
 
 export HADOOP_PREFIX=/usr/local/hadoop
 sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
@@ -109,12 +109,12 @@ build-native-hadoop-libs() {
   build-hadoop-dependencies
 
   # hadoop
-  curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.3.0/hadoop-2.3.0-src.tar.gz|tar xz -C /tmp
+  curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0-src.tar.gz|tar xz -C /tmp
   cd /tmp/hadoop-2.3.0-src/
   mvn package -Pdist,native -DskipTests -Dtar -DskipTests
 
   rm -rf /usr/local/hadoop/lib/native/*
-  cp -d /tmp/hadoop-2.3.0-src/hadoop-dist/target/hadoop-2.3.0/lib/native/* /usr/local/hadoop/lib/native/
+  cp -d /tmp/hadoop-2.6.0-src/hadoop-dist/target/hadoop-2.6.0/lib/native/* /usr/local/hadoop/lib/native/
 }
 
 # fixing the libhadoop.so - we have built a 64bit distro for Hadoop native libs
