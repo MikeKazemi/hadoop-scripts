@@ -22,8 +22,8 @@ export JAVA_HOME=/usr/java/default
 export PATH=$PATH:$JAVA_HOME/bin:/usr/local/bin
 
 # install hadoop
-curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz | tar -xz -C /usr/local/
-cd /usr/local && ln -s hadoop-2.6.0 hadoop
+curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.0/hadoop-2.7.0.tar.gz | tar -xz -C /usr/local/
+cd /usr/local && ln -s hadoop-2.72.0 hadoop
 
 export HADOOP_PREFIX=/usr/local/hadoop
 sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
@@ -109,12 +109,12 @@ build-native-hadoop-libs() {
   build-hadoop-dependencies
 
   # hadoop
-  curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.0/hadoop-2.6.0-src.tar.gz|tar xz -C /tmp
-  cd /tmp/hadoop-2.6.0-src/
+  curl http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.0/hadoop-2.7.0-src.tar.gz|tar xz -C /tmp
+  cd /tmp/hadoop-2.7.0-src/
   mvn package -Pdist,native -DskipTests -Dtar -DskipTests
 
   rm -rf /usr/local/hadoop/lib/native/*
-  cp -d /tmp/hadoop-2.6.0-src/hadoop-dist/target/hadoop-2.6.0/lib/native/* /usr/local/hadoop/lib/native/
+  cp -d /tmp/hadoop-2.7.0-src/hadoop-dist/target/hadoop-2.7.0/lib/native/* /usr/local/hadoop/lib/native/
 }
 
 # fixing the libhadoop.so - we have built a 64bit distro for Hadoop native libs
@@ -133,7 +133,7 @@ $HADOOP_PREFIX/sbin/start-dfs.sh
 $HADOOP_PREFIX/sbin/start-yarn.sh
 $HADOOP_PREFIX/bin/hdfs dfs -mkdir -p /user/root
 $HADOOP_PREFIX/bin/hdfs dfs -put $HADOOP_PREFIX/etc/hadoop/ input
-$HADOOP_PREFIX/bin/hadoop jar $HADOOP_PREFIX/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar grep input output 'dfs[a-z.]+'
+$HADOOP_PREFIX/bin/hadoop jar $HADOOP_PREFIX/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.0.jar grep input output 'dfs[a-z.]+'
 $HADOOP_PREFIX/bin/hdfs dfs -cat output/*
 
 
